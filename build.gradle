@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+    id 'java-library'
+    id 'net.minecrell.plugin-yml.bukkit' version '0.5.2'
+}
+
+group = 'com.github.hibi_10000.plugins'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+    maven { url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/" }
+}
+
+dependencies {
+    implementation "org.spigotmc:spigot-api:1.19.3-R0.1-SNAPSHOT"
+    implementation "org.jetbrains:annotations:24.0.1"
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+bukkit {
+    name = rootProject.name
+    version = project.version
+    description = 'This is a SpeCamera plugin'
+    website = 'https://github.com/Hibi-10000/SpeCamera'
+    author = 'Hibi_10000'
+    main = 'com.github.hibi_10000.plugins.specamera.SpeCamera'
+    apiVersion = '1.13'
+
+    load = 'POSTWORLD' // or 'STARTUP'
+    //authors = ['Auther1', 'Auther2']
+    //depend = ['Plugin']
+    //softDepend = ['CreativeServerPermissions']
+    //loadBefore = ['Plugin']
+    //prefix = 'Plugin'
+    //defaultPermission = 'OP' // 'TRUE', 'FALSE', 'OP' or 'NOT_OP'
+    //provides = ['Plugin1', 'Plugin2']
+
+    commands {
+        'specamera' {
+            description = 'SpeCamera Command'
+            //aliases = ['sc']
+            permission = 'minecraft.command.gamemode'
+            permissionMessage = 'Unknown command. Type "/help" for help.'
+            //usage = ''
+        }
+    }
+}
