@@ -44,6 +44,7 @@ public final class SpeCamera extends JavaPlugin implements Listener {
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent e) {
         Player qp = e.getPlayer();
+        if (!tasks.containsKey(qp.getUniqueId())) return;
         tasks.get(qp.getUniqueId()).cancel();
         tasks.remove(qp.getUniqueId());
     }
