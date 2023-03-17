@@ -16,6 +16,7 @@ import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -95,10 +96,15 @@ public final class SpeCamera extends JavaPlugin implements Listener {
                         new TextComponent("§cSpeCameraを使用するにはスペクテイターにしてください！"));
                     return;
                 }
-                Entity destP = Bukkit.selectEntities(sender, "@r[gamemode=!spectator]").get(0);
-                p.setSpectatorTarget(destP);
+                List<Entity> destP = Bukkit.selectEntities(sender, "@r[gamemode=!spectator]");
+                if (destP.size() == 0) {
+                    p.spigot().sendMessage(ChatMessageType.ACTION_BAR,
+                            new TextComponent("§cスペクテイターではないプレイヤーがいません！"));
+                    return;
+                }
+                p.setSpectatorTarget(destP.get(0));
                 p.spigot().sendMessage(ChatMessageType.ACTION_BAR,
-                        new TextComponent("§aNew Target: §b" + p.getName()));
+                        new TextComponent("§aNew Target: §b" + destP.get(0).getName()));
             }
         }.runTaskTimer(this, Long.parseLong(args[0]), Long.parseLong(args[0])));
         return true;
