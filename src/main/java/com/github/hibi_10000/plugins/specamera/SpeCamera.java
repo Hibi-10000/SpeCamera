@@ -101,6 +101,9 @@ public final class SpeCamera extends JavaPlugin implements Listener {
                 if (destP.size() == 0) {
                     p.spigot().sendMessage(ChatMessageType.ACTION_BAR,
                             new TextComponent("§cスペクテイターではないプレイヤーがいません！"));
+                    if (p.getSpectatorTarget() != null) {
+                        p.setSpectatorTarget(null);
+                    }
                     return;
                 }
                 p.setSpectatorTarget(destP.get(0));
